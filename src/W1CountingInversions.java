@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Created by Maksim.Muzafarov on 16.10.14.
  * Project
  */
-public class Algorithm {
+public class W1CountingInversions {
 
     public long counter;
 
@@ -72,7 +72,7 @@ public class Algorithm {
     }
 
     public static void main (String[] args) {
-        Algorithm alg = new Algorithm();
+        W1CountingInversions alg = new W1CountingInversions();
         alg.counter = 0;
 
         //int array[] = {1, 2, 5, 3, 4, 6};
