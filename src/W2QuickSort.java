@@ -90,9 +90,9 @@ public class W2QuickSort {
 
     public static void main(String[] args) {
         Comparable<Integer>[] in = ArrayFromFileGetter.get("./resources/QuickSort.txt");
-        run(new QuickSortPivotFirst(), in);
-        run(new QuickSortPivotLast(), in);
-        run(new QuickSortPivotMiddle(), in);
+        run(new QuickSortPivotFirst(), in.clone());
+        run(new QuickSortPivotLast(), in.clone());
+        run(new QuickSortPivotMiddle(), in.clone());
 
     }
 
