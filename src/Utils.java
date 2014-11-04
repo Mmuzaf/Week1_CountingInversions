@@ -2,15 +2,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
  * Created by Maksim.Muzafarov on 22.10.14.
  * Project Week1_CountingInversions
  */
-public class ArrayFromFileGetter {
+public class Utils {
 
-    public static Comparable<Integer>[] get(String filePath) {
+    public static Comparable<Integer>[] getArrayFromFile(String filePath) {
 
         Scanner s = null;
         List<Integer> aList = new ArrayList<Integer>();
@@ -30,5 +31,18 @@ public class ArrayFromFileGetter {
             t++;
         }
         return result;
+    }
+
+    public static int randomInt(int min, int max) {
+
+        // NOTE: Usually this should be a field rather than a method
+        // variable so that it is not re-seeded every call.
+        Random rand = new Random();
+
+        // nextInt is normally exclusive of the top value,
+        // so add 1 to make it inclusive
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+
+        return randomNum;
     }
 }
