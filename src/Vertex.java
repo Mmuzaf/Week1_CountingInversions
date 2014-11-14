@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Vertex {
 
@@ -34,10 +36,34 @@ public class Vertex {
         adjacentVertexes.add(adjacentVertex);
     }
 
-//    public Vertex copy() {
-//        List<Vertex> list = new ArrayList<Vertex>(this.adjacentVertexes.size());
-//        for (Vertex v : this.adjacentVertexes)
-//            list.add(v.copy());
-//        return new Vertex(list);
-//    }
+    public Vertex copy() {
+        List<Vertex> list = new ArrayList<Vertex>(this.adjacentVertexes.size());
+        if (!VertexCopyHolder.getInstance().containsKey(this))
+            VertexCopyHolder.getInstance().put(this, Boolean.TRUE);
+        for (Vertex v : this.adjacentVertexes) {
+            if (!VertexCopyHolder.getInstance().containsKey(v)) {
+                list.add(v.copy());
+            } else {
+                VertexCopyHolder.getInstance().put(v, Boolean.TRUE);
+            }
+        }
+        return new Vertex(list);
+    }
+}
+
+class VertexCopyHolder extends IdentityHashMap<Vertex, Boolean> {
+    private static volatile VertexCopyHolder instance;
+
+    public static VertexCopyHolder getInstance() {
+        VertexCopyHolder localInstance = instance;
+        if (localInstance == null) {
+            synchronized (VertexCopyHolder.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new VertexCopyHolder();
+                }
+            }
+        }
+        return localInstance;
+    }
 }
