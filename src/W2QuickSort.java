@@ -1,3 +1,5 @@
+import me.mmuzaf.Utils;
+
 /**
  * Created by Maksim.Muzafarov on 22.10.14.
  * Project Week1_CountingInversions
