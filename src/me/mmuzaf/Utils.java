@@ -49,21 +49,22 @@ public class Utils {
 
     }
 
-    public static Long[] getSortedLongArrayFromFile(String filePath) {
-
-        Scanner s = null;
-        Set<Long> aList = new TreeSet<Long>();
+    public static void getSetFromFile(String filePath, Set<Long> out ) {
         try {
-            s = new Scanner(new File(filePath));
+            Scanner s = new Scanner(new File(filePath));
             while (s.hasNext()) {
-                aList.add(s.nextLong());
+                out.add(s.nextLong());
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
 
-        Long[] result = new Long[aList.size()];
-        aList.toArray(result);
+    public static Long[] getSortedLongArrayFromFile(String filePath) {
+        Set<Long> sorted = new TreeSet<Long>();
+        getSetFromFile(filePath, sorted);
+        Long[] result = new Long[sorted.size()];
+        sorted.toArray(result);
         return result;
     }
 
@@ -73,16 +74,18 @@ public class Utils {
      * @param value input value to search
      * @return   The index of nearest element to 'value'
      */
-    public static <T> int getLowerBoundToKey(T[] a, T value) {
-        int low = 0;
-        int high = a.length - 1;
+    public static <T> int getLowerBoundToKey(T[] a, int from, int to, T value) {
+        int low = from;
+        int high = to;
         int lowerBound = low;
 
         while (low <= high) {
             int mid = (low + high) >>> 1;
+            if (mid == high) {
+                return mid;
+            }
             Comparable midVal = (Comparable) a[mid];
             int cmp = midVal.compareTo(value);
-
             if (cmp < 0) {
                 low = mid + 1;
                 lowerBound = low;
